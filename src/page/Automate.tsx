@@ -151,18 +151,18 @@ const AutomatedCarParkingStation: React.FC = () => {
         data.slice(20, 24).filter((item) => item.name).length >= 1)
     ) {
       return setMessage({
-        title: "Warning",
-        message: "Please exist all the car first",
+        title: "Alert",
+        message: "Sorry! Please kindly exist all the car first",
       });
     }
 
     const checked = parkLot.every((value) => value.name);
     if (checked) {
-      return setMessage({ title: "Warning", message: "Full space" });
+      return setMessage({ title: "Alert", message: "Sorry! No Parking Space left" });
     } else if (!no) {
       return setMessage({
-        title: "Warning",
-        message: "Please input template number",
+        title: "Alert",
+        message: "Kindly input Car template number",
       });
     }
 
@@ -193,11 +193,11 @@ const AutomatedCarParkingStation: React.FC = () => {
       ...arr.slice(index + newItem?.length),
     ];
   };
-  const handleExistPark1 = (item?: CarProps, index?: number) => {
+  const handleExitPark1 = (item?: CarProps, index?: number) => {
     if (!item?.name || index === undefined) {
       return setMessage({
-        title: "Warning",
-        message: "Don't have car to exist",
+        title: "Alert",
+        message: "There is no car to exit",
       });
     } else {
       let newIndex = 4;
@@ -223,17 +223,17 @@ const AutomatedCarParkingStation: React.FC = () => {
         .concat(newData.slice(newIndex - 8, index - 4));
       setData(OnInsert(newData, newIndex - 8, arrange));
       setMessage({
-        title: "Thank you",
-        message: `The car's ${item.name} has been exist`,
+        title: "Thank you!",
+        message: `The car with name ${item.name} has been exited.`,
       });
     }
   };
 
-  const handleExistPark2 = (item?: CarProps, index?: number) => {
+  const handleExitPark2 = (item?: CarProps, index?: number) => {
     if (!item?.name || index === undefined) {
       return setMessage({
-        title: "Warning",
-        message: "Don't have car to exist",
+        title: "Alert",
+        message: "There is no car to exit",
       });
     } else {
       let startIndex = 19;
@@ -257,8 +257,8 @@ const AutomatedCarParkingStation: React.FC = () => {
         .concat(parkSpace.slice(16, length > 4 ? 16 + 4 : 16 + length));
       setData(OnInsert(newData, startIndex - 3, arrange));
       setMessage({
-        title: "Thank you",
-        message: `The car's ${item.name} has been exist`,
+        title: "Thank you!",
+        message: `The car with name ${item.name} has been exited`,
       });
     }
   };
@@ -270,7 +270,7 @@ const AutomatedCarParkingStation: React.FC = () => {
       )}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
         <ButtomLayout>
-          <Title className="title">Template number</Title>
+          <Title className="title">Enter Car Template number</Title>
           <div style={{ marginBottom: 20 }} />
           <Input
             type="text"
@@ -289,7 +289,7 @@ const AutomatedCarParkingStation: React.FC = () => {
               <div key={index}>
                 <Slot
                   onClick={() => {
-                    handleExistPark1(item, index + 4);
+                    handleExitPark1(item, index + 4);
                   }}
                 >
                   <Image
@@ -298,7 +298,7 @@ const AutomatedCarParkingStation: React.FC = () => {
                       "https://cdn.icon-icons.com/icons2/2248/PNG/512/car_off_icon_138805.png"
                     }
                   />
-                  <p>{item?.name || "Availability"}</p>
+                  <p>{item?.name || "Available"}</p>
                 </Slot>
               </div>
             ))}
@@ -312,7 +312,7 @@ const AutomatedCarParkingStation: React.FC = () => {
                 <div key={index + 16}>
                   <Slot
                     onClick={() => {
-                      handleExistPark2(item, index + 16 + 4);
+                      handleExitPark2(item, index + 16 + 4);
                     }}
                   >
                     <Image
@@ -321,7 +321,7 @@ const AutomatedCarParkingStation: React.FC = () => {
                         "https://cdn.icon-icons.com/icons2/2248/PNG/512/car_off_icon_138805.png"
                       }
                     />
-                    <p>{item?.name || "Availability"}</p>
+                    <p>{item?.name || "Available"}</p>
                   </Slot>
                 </div>
               );
