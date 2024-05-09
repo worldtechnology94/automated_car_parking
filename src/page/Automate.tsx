@@ -12,6 +12,28 @@ interface Message {
   message: string;
 }
 
+const Body = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: normal;
+
+  @media (max-width: 1400px) {
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    :first-child {
+      grid-column: span 2;
+    }
+  }
+
+  @media (max-width: 1060px) {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    :first-child {
+      grid-column: 1;
+    }
+  }
+`;
+
 const Row = styled.div<{ $row: number }>`
   width: 500px;
   display: grid;
@@ -158,7 +180,10 @@ const AutomatedCarParkingStation: React.FC = () => {
 
     const checked = parkLot.every((value) => value.name);
     if (checked) {
-      return setMessage({ title: "Alert", message: "Sorry! No Parking Space left" });
+      return setMessage({
+        title: "Alert",
+        message: "Sorry! No Parking Space left",
+      });
     } else if (!no) {
       return setMessage({
         title: "Alert",
@@ -268,7 +293,7 @@ const AutomatedCarParkingStation: React.FC = () => {
       {message && (
         <ModalComponent {...message} onClose={() => setMessage(undefined)} />
       )}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
+      <Body>
         <ButtomLayout>
           <Title className="title">Enter Car Template number</Title>
           <div style={{ marginBottom: 20 }} />
@@ -327,7 +352,7 @@ const AutomatedCarParkingStation: React.FC = () => {
               );
             })}
         </Row>
-      </div>
+      </Body>
     </div>
   );
 };
